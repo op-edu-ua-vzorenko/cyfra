@@ -30,22 +30,22 @@
         {
             layoutRoot = new TableLayoutPanel();
             panelLeft = new Panel();
-            buttonLoad = new Button();
-            pictureBoxOriginal = new PictureBox();
             buttonConvert = new Button();
+            pictureBoxOriginal = new PictureBox();
+            buttonLoad = new Button();
             layoutChannels = new TableLayoutPanel();
             pictureBoxR = new PictureBox();
             pictureBoxG = new PictureBox();
             pictureBoxB = new PictureBox();
             panelBottomLeft = new Panel();
-            panelBottomCenter = new Panel();
-            panelBottomRight = new Panel();
+            buttonSaveR = new Button();
             labelR = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
+            panelBottomCenter = new Panel();
+            buttonSaveG = new Button();
+            labelG = new Label();
+            panelBottomRight = new Panel();
+            buttonSaveB = new Button();
+            labelB = new Label();
             layoutRoot.SuspendLayout();
             panelLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxOriginal).BeginInit();
@@ -73,7 +73,6 @@
             layoutRoot.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutRoot.Size = new Size(1343, 559);
             layoutRoot.TabIndex = 0;
-            layoutRoot.Paint += tableLayoutPanel1_Paint;
             // 
             // panelLeft
             // 
@@ -86,16 +85,16 @@
             panelLeft.Size = new Size(464, 553);
             panelLeft.TabIndex = 0;
             // 
-            // buttonLoad
+            // buttonConvert
             // 
-            buttonLoad.Dock = DockStyle.Top;
-            buttonLoad.Location = new Point(0, 0);
-            buttonLoad.Name = "buttonLoad";
-            buttonLoad.Size = new Size(464, 40);
-            buttonLoad.TabIndex = 0;
-            buttonLoad.Text = "Load picture";
-            buttonLoad.UseVisualStyleBackColor = true;
-            buttonLoad.Click += button1_Click;
+            buttonConvert.Dock = DockStyle.Top;
+            buttonConvert.Enabled = false;
+            buttonConvert.Location = new Point(0, 340);
+            buttonConvert.Name = "buttonConvert";
+            buttonConvert.Size = new Size(464, 40);
+            buttonConvert.TabIndex = 2;
+            buttonConvert.Text = "Convert to channels";
+            buttonConvert.UseVisualStyleBackColor = true;
             // 
             // pictureBoxOriginal
             // 
@@ -107,18 +106,16 @@
             pictureBoxOriginal.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxOriginal.TabIndex = 1;
             pictureBoxOriginal.TabStop = false;
-            pictureBoxOriginal.Click += pictureBox1_Click;
             // 
-            // buttonConvert
+            // buttonLoad
             // 
-            buttonConvert.Dock = DockStyle.Top;
-            buttonConvert.Enabled = false;
-            buttonConvert.Location = new Point(0, 340);
-            buttonConvert.Name = "buttonConvert";
-            buttonConvert.Size = new Size(464, 40);
-            buttonConvert.TabIndex = 2;
-            buttonConvert.Text = "Convert to channels";
-            buttonConvert.UseVisualStyleBackColor = true;
+            buttonLoad.Dock = DockStyle.Top;
+            buttonLoad.Location = new Point(0, 0);
+            buttonLoad.Name = "buttonLoad";
+            buttonLoad.Size = new Size(464, 40);
+            buttonLoad.TabIndex = 0;
+            buttonLoad.Text = "Load picture";
+            buttonLoad.UseVisualStyleBackColor = true;
             // 
             // layoutChannels
             // 
@@ -162,7 +159,6 @@
             pictureBoxG.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxG.TabIndex = 1;
             pictureBoxG.TabStop = false;
-            pictureBoxG.Click += pictureBox2_Click;
             // 
             // pictureBoxB
             // 
@@ -177,7 +173,7 @@
             // 
             // panelBottomLeft
             // 
-            panelBottomLeft.Controls.Add(button1);
+            panelBottomLeft.Controls.Add(buttonSaveR);
             panelBottomLeft.Controls.Add(labelR);
             panelBottomLeft.Dock = DockStyle.Fill;
             panelBottomLeft.Location = new Point(3, 445);
@@ -185,26 +181,16 @@
             panelBottomLeft.Size = new Size(282, 105);
             panelBottomLeft.TabIndex = 3;
             // 
-            // panelBottomCenter
+            // buttonSaveR
             // 
-            panelBottomCenter.Controls.Add(button2);
-            panelBottomCenter.Controls.Add(label2);
-            panelBottomCenter.Dock = DockStyle.Fill;
-            panelBottomCenter.Location = new Point(291, 445);
-            panelBottomCenter.Name = "panelBottomCenter";
-            panelBottomCenter.Size = new Size(283, 105);
-            panelBottomCenter.TabIndex = 4;
-            // 
-            // panelBottomRight
-            // 
-            panelBottomRight.Controls.Add(button3);
-            panelBottomRight.Controls.Add(label3);
-            panelBottomRight.Dock = DockStyle.Fill;
-            panelBottomRight.Location = new Point(580, 445);
-            panelBottomRight.Name = "panelBottomRight";
-            panelBottomRight.Size = new Size(284, 105);
-            panelBottomRight.TabIndex = 5;
-            panelBottomRight.Paint += panel3_Paint;
+            buttonSaveR.Dock = DockStyle.Top;
+            buttonSaveR.Enabled = false;
+            buttonSaveR.Location = new Point(0, 32);
+            buttonSaveR.Name = "buttonSaveR";
+            buttonSaveR.Size = new Size(282, 46);
+            buttonSaveR.TabIndex = 1;
+            buttonSaveR.Text = "Download R";
+            buttonSaveR.UseVisualStyleBackColor = true;
             // 
             // labelR
             // 
@@ -217,60 +203,69 @@
             labelR.Text = "Red (R)";
             labelR.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // panelBottomCenter
             // 
-            label2.AutoSize = true;
-            label2.Dock = DockStyle.Top;
-            label2.Location = new Point(0, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(115, 32);
-            label2.TabIndex = 0;
-            label2.Text = "Green (G)";
-            label2.TextAlign = ContentAlignment.MiddleCenter;
+            panelBottomCenter.Controls.Add(buttonSaveG);
+            panelBottomCenter.Controls.Add(labelG);
+            panelBottomCenter.Dock = DockStyle.Fill;
+            panelBottomCenter.Location = new Point(291, 445);
+            panelBottomCenter.Name = "panelBottomCenter";
+            panelBottomCenter.Size = new Size(283, 105);
+            panelBottomCenter.TabIndex = 4;
             // 
-            // label3
+            // buttonSaveG
             // 
-            label3.AutoSize = true;
-            label3.Dock = DockStyle.Top;
-            label3.Location = new Point(0, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(96, 32);
-            label3.TabIndex = 0;
-            label3.Text = "Blue (B)";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
+            buttonSaveG.Dock = DockStyle.Top;
+            buttonSaveG.Enabled = false;
+            buttonSaveG.Location = new Point(0, 32);
+            buttonSaveG.Name = "buttonSaveG";
+            buttonSaveG.Size = new Size(283, 46);
+            buttonSaveG.TabIndex = 1;
+            buttonSaveG.Text = "Download G";
+            buttonSaveG.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // labelG
             // 
-            button1.Dock = DockStyle.Top;
-            button1.Enabled = false;
-            button1.Location = new Point(0, 32);
-            button1.Name = "button1";
-            button1.Size = new Size(282, 46);
-            button1.TabIndex = 1;
-            button1.Text = "Download R";
-            button1.UseVisualStyleBackColor = true;
+            labelG.AutoSize = true;
+            labelG.Dock = DockStyle.Top;
+            labelG.Location = new Point(0, 0);
+            labelG.Name = "labelG";
+            labelG.Size = new Size(115, 32);
+            labelG.TabIndex = 0;
+            labelG.Text = "Green (G)";
+            labelG.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // button2
+            // panelBottomRight
             // 
-            button2.Dock = DockStyle.Top;
-            button2.Enabled = false;
-            button2.Location = new Point(0, 32);
-            button2.Name = "button2";
-            button2.Size = new Size(283, 46);
-            button2.TabIndex = 1;
-            button2.Text = "Download G";
-            button2.UseVisualStyleBackColor = true;
+            panelBottomRight.Controls.Add(buttonSaveB);
+            panelBottomRight.Controls.Add(labelB);
+            panelBottomRight.Dock = DockStyle.Fill;
+            panelBottomRight.Location = new Point(580, 445);
+            panelBottomRight.Name = "panelBottomRight";
+            panelBottomRight.Size = new Size(284, 105);
+            panelBottomRight.TabIndex = 5;
             // 
-            // button3
+            // buttonSaveB
             // 
-            button3.Dock = DockStyle.Top;
-            button3.Enabled = false;
-            button3.Location = new Point(0, 32);
-            button3.Name = "button3";
-            button3.Size = new Size(284, 46);
-            button3.TabIndex = 1;
-            button3.Text = "Download B";
-            button3.UseVisualStyleBackColor = true;
+            buttonSaveB.Dock = DockStyle.Top;
+            buttonSaveB.Enabled = false;
+            buttonSaveB.Location = new Point(0, 32);
+            buttonSaveB.Name = "buttonSaveB";
+            buttonSaveB.Size = new Size(284, 46);
+            buttonSaveB.TabIndex = 1;
+            buttonSaveB.Text = "Download B";
+            buttonSaveB.UseVisualStyleBackColor = true;
+            // 
+            // labelB
+            // 
+            labelB.AutoSize = true;
+            labelB.Dock = DockStyle.Top;
+            labelB.Location = new Point(0, 0);
+            labelB.Name = "labelB";
+            labelB.Size = new Size(96, 32);
+            labelB.TabIndex = 0;
+            labelB.Text = "Blue (B)";
+            labelB.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -314,10 +309,10 @@
         private Panel panelBottomCenter;
         private Panel panelBottomRight;
         private Label labelR;
-        private Label label2;
-        private Label label3;
-        private Button button1;
-        private Button button2;
-        private Button button3;
+        private Label labelG;
+        private Label labelB;
+        private Button buttonSaveR;
+        private Button buttonSaveG;
+        private Button buttonSaveB;
     }
 }
