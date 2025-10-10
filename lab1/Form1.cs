@@ -89,5 +89,44 @@
             buttonSaveG.Enabled = true;
             buttonSaveB.Enabled = true;
         }
+
+
+
+        private void SaveChannel(Bitmap? bmp, string suffix)
+        {
+            if (bmp == null)
+            {
+                MessageBox.Show($"Канал {suffix} ещё не сформирован.", "Nothing to save",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            string baseName = _originalPath is null ? "image" : Path.GetFileNameWithoutExtension(_originalPath);
+
+            using var sfd = new SaveFileDialog
+            {
+                Title = $"Save channel {suffix}",
+                FileName = $"{baseName}_{suffix}.bmp",      // дефолт — BMP (как в методичке)
+                Filter = "BMP (*.bmp)|*.bmp|PNG (*.png)|*.png|JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg",
+                FilterIndex = 1,
+                RestoreDirectory = true,
+                AddExtension = true
+            };
+
+            if (sfd.ShowDialog(this) != DialogResult.OK) return;
+
+            // выбор формата по расширению
+            var ext = Path.GetExtension(sfd.FileName).ToLowerInvariant();
+            var fmt = System.Drawing.Imaging.ImageFormat.Bmp;
+            if (ext == ".png") fmt = System.Drawing.Imaging.ImageFormat.Png;
+            else if (ext == ".jpg" || ext == ".jpeg") fmt = System.Drawing.Imaging.ImageFormat.Jpeg;
+
+            // сохранение
+            bmp.Save(sfd.FileName, fmt);
+        }
+
+        private void buttonSaveR_Click(object sender, EventArgs e) => SaveChannel(_imgR, "R");
+        private void buttonSaveG_Click(object sender, EventArgs e) => SaveChannel(_imgG, "G");
+        private void buttonSaveB_Click(object sender, EventArgs e) => SaveChannel(_imgB, "B");
     }
 }

@@ -193,6 +193,7 @@
             buttonSaveR.TabIndex = 1;
             buttonSaveR.Text = "Download R";
             buttonSaveR.UseVisualStyleBackColor = true;
+            buttonSaveR.Click += buttonSaveR_Click;
             // 
             // labelR
             // 
@@ -225,6 +226,7 @@
             buttonSaveG.TabIndex = 1;
             buttonSaveG.Text = "Download G";
             buttonSaveG.UseVisualStyleBackColor = true;
+            buttonSaveG.Click += buttonSaveG_Click;
             // 
             // labelG
             // 
@@ -257,6 +259,7 @@
             buttonSaveB.TabIndex = 1;
             buttonSaveB.Text = "Download B";
             buttonSaveB.UseVisualStyleBackColor = true;
+            buttonSaveB.Click += buttonSaveB_Click;
             // 
             // labelB
             // 
