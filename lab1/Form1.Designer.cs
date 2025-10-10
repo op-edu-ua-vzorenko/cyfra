@@ -95,6 +95,7 @@
             buttonConvert.TabIndex = 2;
             buttonConvert.Text = "Convert to channels";
             buttonConvert.UseVisualStyleBackColor = true;
+            buttonConvert.Click += buttonConvert_Click;
             // 
             // pictureBoxOriginal
             // 
@@ -116,6 +117,7 @@
             buttonLoad.TabIndex = 0;
             buttonLoad.Text = "Load picture";
             buttonLoad.UseVisualStyleBackColor = true;
+            buttonLoad.Click += buttonLoad_Click;
             // 
             // layoutChannels
             // 
