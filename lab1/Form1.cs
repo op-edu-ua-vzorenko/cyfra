@@ -40,7 +40,7 @@
             buttonConvert.Enabled = true;          // включим следующий шаг
         }
 
-        private void DisposeChannelBitmaps()
+        private void DisposeChannelBitmaps() // Допоміжна функція
         {
             pictureBoxR.Image = null;
             pictureBoxG.Image = null;
@@ -65,7 +65,7 @@
             _imgG = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
             _imgB = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
 
-            // простая версия через GetPixel/SetPixel (для лабы ок)
+            // простая версия через GetPixel/SetPixel
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
@@ -96,7 +96,7 @@
         {
             if (bmp == null)
             {
-                MessageBox.Show($"Канал {suffix} ещё не сформирован.", "Nothing to save",
+                MessageBox.Show($"Channel {suffix} not ready yet", "Nothing to save",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -106,7 +106,7 @@
             using var sfd = new SaveFileDialog
             {
                 Title = $"Save channel {suffix}",
-                FileName = $"{baseName}_{suffix}.bmp",      // дефолт — BMP (как в методичке)
+                FileName = $"{baseName}_{suffix}.bmp",      // дефолт — BMP
                 Filter = "BMP (*.bmp)|*.bmp|PNG (*.png)|*.png|JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg",
                 FilterIndex = 1,
                 RestoreDirectory = true,
@@ -115,13 +115,13 @@
 
             if (sfd.ShowDialog(this) != DialogResult.OK) return;
 
-            // выбор формата по расширению
+            // вибір формату за розширенням
             var ext = Path.GetExtension(sfd.FileName).ToLowerInvariant();
             var fmt = System.Drawing.Imaging.ImageFormat.Bmp;
             if (ext == ".png") fmt = System.Drawing.Imaging.ImageFormat.Png;
             else if (ext == ".jpg" || ext == ".jpeg") fmt = System.Drawing.Imaging.ImageFormat.Jpeg;
 
-            // сохранение
+            // збереження
             bmp.Save(sfd.FileName, fmt);
         }
 
