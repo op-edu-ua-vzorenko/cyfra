@@ -42,6 +42,7 @@
             this.trackBarBlue = new System.Windows.Forms.TrackBar();
             this.buttonSaveGrayscaleCustom = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
+            this.buttonRefreshPicture = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSrc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGrayscale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGrayscaleCustom)).BeginInit();
@@ -93,6 +94,7 @@
             // 
             // buttonConvert
             // 
+            this.buttonConvert.Enabled = false;
             this.buttonConvert.Location = new System.Drawing.Point(166, 440);
             this.buttonConvert.Name = "buttonConvert";
             this.buttonConvert.Size = new System.Drawing.Size(150, 30);
@@ -103,12 +105,14 @@
             // 
             // buttonSaveGrayscale
             // 
+            this.buttonSaveGrayscale.Enabled = false;
             this.buttonSaveGrayscale.Location = new System.Drawing.Point(737, 381);
             this.buttonSaveGrayscale.Name = "buttonSaveGrayscale";
             this.buttonSaveGrayscale.Size = new System.Drawing.Size(150, 30);
             this.buttonSaveGrayscale.TabIndex = 6;
             this.buttonSaveGrayscale.Text = "Save picture";
             this.buttonSaveGrayscale.UseVisualStyleBackColor = true;
+            this.buttonSaveGrayscale.Click += new System.EventHandler(this.buttonSaveGrayscale_Click);
             // 
             // trackBarRed
             // 
@@ -166,28 +170,41 @@
             // 
             // buttonSaveGrayscaleCustom
             // 
+            this.buttonSaveGrayscaleCustom.Enabled = false;
             this.buttonSaveGrayscaleCustom.Location = new System.Drawing.Point(1294, 381);
             this.buttonSaveGrayscaleCustom.Name = "buttonSaveGrayscaleCustom";
             this.buttonSaveGrayscaleCustom.Size = new System.Drawing.Size(150, 30);
             this.buttonSaveGrayscaleCustom.TabIndex = 13;
             this.buttonSaveGrayscaleCustom.Text = "Save picture";
             this.buttonSaveGrayscaleCustom.UseVisualStyleBackColor = true;
+            this.buttonSaveGrayscaleCustom.Click += new System.EventHandler(this.buttonSaveGrayscaleCustom_Click);
             // 
             // buttonReset
             // 
-            this.buttonReset.Location = new System.Drawing.Point(1294, 672);
+            this.buttonReset.Location = new System.Drawing.Point(1204, 672);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(150, 30);
             this.buttonReset.TabIndex = 14;
             this.buttonReset.Text = "Reset";
             this.buttonReset.UseVisualStyleBackColor = true;
-            this.buttonReset.Click += new System.EventHandler(this.button6_Click);
+            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            // 
+            // buttonRefreshPicture
+            // 
+            this.buttonRefreshPicture.Location = new System.Drawing.Point(1370, 672);
+            this.buttonRefreshPicture.Name = "buttonRefreshPicture";
+            this.buttonRefreshPicture.Size = new System.Drawing.Size(150, 30);
+            this.buttonRefreshPicture.TabIndex = 15;
+            this.buttonRefreshPicture.Text = "Refresh picture";
+            this.buttonRefreshPicture.UseVisualStyleBackColor = true;
+            this.buttonRefreshPicture.Click += new System.EventHandler(this.buttonResreshPicture_Click);
             // 
             // FormPicConvertGrayscale
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1619, 769);
+            this.Controls.Add(this.buttonRefreshPicture);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.buttonSaveGrayscaleCustom);
             this.Controls.Add(this.trackBarBlue);
@@ -231,6 +248,7 @@
         private System.Windows.Forms.TrackBar trackBarBlue;
         private System.Windows.Forms.Button buttonSaveGrayscaleCustom;
         private System.Windows.Forms.Button buttonReset;
+        private System.Windows.Forms.Button buttonRefreshPicture;
     }
 }
 

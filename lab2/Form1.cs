@@ -20,6 +20,36 @@ namespace lab2
         public FormPicConvertGrayscale()
         {
             InitializeComponent();
+
+            // --- ИНИЦИАЛИЗАЦИЯ (Запускается при старте) ---
+
+            // Настраиваем ограничители для ползунков (от 0 до 255) через код
+            SetupTrackBar(trackBarRed);
+            SetupTrackBar(trackBarGreen); // Убедись, что в дизайнере ты переименовал его в trackBarGreen!
+            SetupTrackBar(trackBarBlue);
+
+            // Устанавливаем "правильные" веса по умолчанию
+            SetStandardWeights();
+        }
+
+        /// <summary>
+        /// Вспомогательный метод для настройки свойств TrackBar
+        /// </summary>
+        private void SetupTrackBar(TrackBar bar)
+        {
+            bar.Minimum = 0;
+            bar.Maximum = 255;
+            bar.TickFrequency = 10; // Визуальные засечки каждые 10 единиц
+        }
+
+        /// <summary>
+        /// Устанавливает ползунки в стандартные значения (NTSC формула)
+        /// </summary>
+        private void SetStandardWeights()
+        {
+            trackBarRed.Value = 77;
+            trackBarGreen.Value = 150;
+            trackBarBlue.Value = 29;
         }
 
         /// <summary>
@@ -51,6 +81,7 @@ namespace lab2
                         // Отображение исходного изображения
                         pictureBoxSrc.Image = _originalBitmap;
                         pictureBoxSrc.SizeMode = PictureBoxSizeMode.Zoom;
+                        buttonConvert.Enabled = true; // Активируем кнопку преобразования
                     }
                     catch (Exception ex)
                     {
@@ -60,9 +91,86 @@ namespace lab2
             }
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Метод №1: Считает ТОЛЬКО стандартное ч/б изображение (77, 150, 29)
+        /// и выводит его в средний PictureBox.
+        /// </summary>
+        private void UpdateStandardImage()
         {
+            if (_originalBitmap == null) return;
 
+            int w = _originalBitmap.Width;
+            int h = _originalBitmap.Height;
+
+            Bitmap bmpStandard = new Bitmap(w, h);
+
+            for (int x = 0; x < w; x++)
+            {
+                for (int y = 0; y < h; y++)
+                {
+                    Color pixel = _originalBitmap.GetPixel(x, y);
+
+                    // Стандартная формула: (77R + 150G + 29B) / 256
+                    int grayStd = (77 * pixel.R + 150 * pixel.G + 29 * pixel.B) / 256;
+
+                    Color newColor = Color.FromArgb(pixel.A, grayStd, grayStd, grayStd);
+                    bmpStandard.SetPixel(x, y, newColor);
+                }
+            }
+
+            pictureBoxGrayscale.Image = bmpStandard;
+            pictureBoxGrayscale.SizeMode = PictureBoxSizeMode.Zoom;
+            buttonSaveGrayscale.Enabled = true;
+        }
+
+        /// <summary>
+        /// Метод №2: Считает ТОЛЬКО кастомное ч/б изображение
+        /// на основе текущих значений ползунков.
+        /// </summary>
+        private void UpdateCustomImage()
+        {
+            if (_originalBitmap == null) return;
+
+            int w = _originalBitmap.Width;
+            int h = _originalBitmap.Height;
+
+            Bitmap bmpCustom = new Bitmap(w, h);
+
+            // Получаем веса
+            int kR = trackBarRed.Value;
+            int kG = trackBarGreen.Value;
+            int kB = trackBarBlue.Value;
+
+            int sumWeights = kR + kG + kB;
+            if (sumWeights <= 0) sumWeights = 1; // Защита от деления на 0
+
+            for (int x = 0; x < w; x++)
+            {
+                for (int y = 0; y < h; y++)
+                {
+                    Color pixel = _originalBitmap.GetPixel(x, y);
+
+                    // Формула из задания 2.2: (Kr*R + Kg*G + Kb*B) / Sum
+                    long numerator = (long)kR * pixel.R + (long)kG * pixel.G + (long)kB * pixel.B;
+                    int grayCust = (int)(numerator / sumWeights);
+
+                    // Ограничение диапазона (клиппинг)
+                    if (grayCust > 255) grayCust = 255;
+                    if (grayCust < 0) grayCust = 0;
+
+                    Color newColor = Color.FromArgb(pixel.A, grayCust, grayCust, grayCust);
+                    bmpCustom.SetPixel(x, y, newColor);
+                }
+            }
+
+            pictureBoxGrayscaleCustom.Image = bmpCustom;
+            pictureBoxGrayscaleCustom.SizeMode = PictureBoxSizeMode.Zoom;
+            buttonSaveGrayscaleCustom.Enabled = true;
+        }
+        private void buttonReset_Click(object sender, EventArgs e)
+        {
+            SetStandardWeights();
+            UpdateCustomImage();
         }
         /// <summary>
         /// Обработчик кнопки "Convert".
@@ -71,55 +179,50 @@ namespace lab2
         /// </summary>
         private void buttonConvert_Click(object sender, EventArgs e)
         {
-            // Проверка на наличие загруженного изображения перед обработкой
             if (_originalBitmap == null)
             {
                 MessageBox.Show("Сначала загрузите изображение!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Получаем размеры изображения для создания пустого холста того же размера
-            int width = _originalBitmap.Width;
-            int height = _originalBitmap.Height;
-
-            // Создаем новый Bitmap для результата.
-            // Используем тот же размер, что и у оригинала.
-            Bitmap grayImage = new Bitmap(width, height);
-
-            // Проходим по каждому пикселю изображения.
-            // Вложенные циклы по ширине (x) и высоте (y).
-            // Примечание: GetPixel/SetPixel работают медленно на больших изображениях,
-            // но являются самым безопасным и понятным способом доступа к пикселям в Windows Forms.
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    // Получаем цвет текущего пикселя
-                    Color originalColor = _originalBitmap.GetPixel(x, y);
-
-                    // Вычисляем значение яркости (gray) по стандартной формуле.
-                    // Формула: (77*R + 150*G + 29*B) / 256.
-                    // Используется целочисленное деление, сумма коэффициентов равна 256.
-                    int grayValue = (77 * originalColor.R + 150 * originalColor.G + 29 * originalColor.B) / 256;
-
-                    // Создаем новый цвет.
-                    // Для оттенков серого значения R, G и B должны быть равны вычисленному grayValue.
-                    // Альфа-канал (прозрачность) сохраняем от оригинала.
-                    Color newColor = Color.FromArgb(originalColor.A, grayValue, grayValue, grayValue);
-
-                    // Записываем полученный пиксель в результирующее изображение
-                    grayImage.SetPixel(x, y, newColor);
-                }
-            }
-
-            // Выводим результат во второй PictureBox
-            pictureBoxGrayscale.Image = grayImage;
-            pictureBoxGrayscale.SizeMode = PictureBoxSizeMode.Zoom;
+            // Вызываем методы по очереди
+            UpdateStandardImage();
+            UpdateCustomImage();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        // --- СОХРАНЕНИЕ (Helper метод) ---
+        private void SaveImageToFile(Image image)
+        {
+            if (image == null) return;
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "BMP|*.bmp|JPG|*.jpg|PNG|*.png";
+                if (sfd.ShowDialog() == DialogResult.OK)
+                    image.Save(sfd.FileName);
+            }
+        }
+
+        // Кнопка сохранения СТАНДАРТНОГО результата
+        private void buttonSaveGrayscale_Click(object sender, EventArgs e)
+        {
+            SaveImageToFile(pictureBoxGrayscale.Image);
+        }
+
+        // Кнопка сохранения ПОЛЬЗОВАТЕЛЬСКОГО результата
+        private void buttonSaveGrayscaleCustom_Click(object sender, EventArgs e)
+        {
+            SaveImageToFile(pictureBoxGrayscaleCustom.Image);
+        }
+
+        private void buttonResreshPicture_Click(object sender, EventArgs e)
+        {
+            // Просто вызываем наш готовый метод
+            UpdateCustomImage();
         }
     }
 }
