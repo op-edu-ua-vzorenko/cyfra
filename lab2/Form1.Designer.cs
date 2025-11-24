@@ -1,6 +1,6 @@
 ﻿namespace lab2
 {
-    partial class Form1
+    partial class FormPicConvertGrayscale
     {
         /// <summary>
         /// Required designer variable.
@@ -38,7 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.trackBarFreen = new System.Windows.Forms.TrackBar();
+            this.trackBarGreen = new System.Windows.Forms.TrackBar();
             this.trackBarBlue = new System.Windows.Forms.TrackBar();
             this.buttonSaveGrayscaleCustom = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
@@ -46,32 +46,38 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGrayscale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGrayscaleCustom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarRed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarFreen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarGreen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBlue)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxSrc
             // 
+            this.pictureBoxSrc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxSrc.Location = new System.Drawing.Point(45, 51);
             this.pictureBoxSrc.Name = "pictureBoxSrc";
             this.pictureBoxSrc.Size = new System.Drawing.Size(400, 300);
+            this.pictureBoxSrc.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxSrc.TabIndex = 0;
             this.pictureBoxSrc.TabStop = false;
             this.pictureBoxSrc.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // pictureBoxGrayscale
             // 
+            this.pictureBoxGrayscale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxGrayscale.Location = new System.Drawing.Point(604, 51);
             this.pictureBoxGrayscale.Name = "pictureBoxGrayscale";
             this.pictureBoxGrayscale.Size = new System.Drawing.Size(400, 300);
+            this.pictureBoxGrayscale.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxGrayscale.TabIndex = 1;
             this.pictureBoxGrayscale.TabStop = false;
             // 
             // pictureBoxGrayscaleCustom
             // 
+            this.pictureBoxGrayscaleCustom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxGrayscaleCustom.Location = new System.Drawing.Point(1162, 51);
             this.pictureBoxGrayscaleCustom.Name = "pictureBoxGrayscaleCustom";
             this.pictureBoxGrayscaleCustom.Size = new System.Drawing.Size(400, 300);
+            this.pictureBoxGrayscaleCustom.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxGrayscaleCustom.TabIndex = 2;
             this.pictureBoxGrayscaleCustom.TabStop = false;
             // 
@@ -83,7 +89,7 @@
             this.buttonLoadPicture.TabIndex = 4;
             this.buttonLoadPicture.Text = "Load Picture";
             this.buttonLoadPicture.UseVisualStyleBackColor = true;
-            this.buttonLoadPicture.Click += new System.EventHandler(this.button2_Click);
+            this.buttonLoadPicture.Click += new System.EventHandler(this.buttonLoadPicture_Click);
             // 
             // buttonConvert
             // 
@@ -93,7 +99,7 @@
             this.buttonConvert.TabIndex = 5;
             this.buttonConvert.Text = "Convert";
             this.buttonConvert.UseVisualStyleBackColor = true;
-            this.buttonConvert.Click += new System.EventHandler(this.button3_Click);
+            this.buttonConvert.Click += new System.EventHandler(this.buttonConvert_Click);
             // 
             // buttonSaveGrayscale
             // 
@@ -144,12 +150,12 @@
             this.label3.TabIndex = 10;
             this.label3.Text = "B";
             // 
-            // trackBarFreen
+            // trackBarGreen
             // 
-            this.trackBarFreen.Location = new System.Drawing.Point(1266, 522);
-            this.trackBarFreen.Name = "trackBarFreen";
-            this.trackBarFreen.Size = new System.Drawing.Size(296, 69);
-            this.trackBarFreen.TabIndex = 11;
+            this.trackBarGreen.Location = new System.Drawing.Point(1266, 522);
+            this.trackBarGreen.Name = "trackBarGreen";
+            this.trackBarGreen.Size = new System.Drawing.Size(296, 69);
+            this.trackBarGreen.TabIndex = 11;
             // 
             // trackBarBlue
             // 
@@ -177,15 +183,15 @@
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.button6_Click);
             // 
-            // Form1
+            // FormPicConvertGrayscale
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1619, 855);
+            this.ClientSize = new System.Drawing.Size(1619, 769);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.buttonSaveGrayscaleCustom);
             this.Controls.Add(this.trackBarBlue);
-            this.Controls.Add(this.trackBarFreen);
+            this.Controls.Add(this.trackBarGreen);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -196,13 +202,13 @@
             this.Controls.Add(this.pictureBoxGrayscaleCustom);
             this.Controls.Add(this.pictureBoxGrayscale);
             this.Controls.Add(this.pictureBoxSrc);
-            this.Name = "Form1";
+            this.Name = "FormPicConvertGrayscale";
             this.Text = "Image converter to grayscale";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSrc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGrayscale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGrayscaleCustom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarRed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarFreen)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarGreen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBlue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -221,7 +227,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TrackBar trackBarFreen;
+        private System.Windows.Forms.TrackBar trackBarGreen;
         private System.Windows.Forms.TrackBar trackBarBlue;
         private System.Windows.Forms.Button buttonSaveGrayscaleCustom;
         private System.Windows.Forms.Button buttonReset;
